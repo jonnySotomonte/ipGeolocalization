@@ -2,7 +2,6 @@ package com.meli.ipgeolocalization.delivery.rest.web;
 
 import com.meli.ipgeolocalization.delivery.rest.model.IpTraceRequest;
 import com.meli.ipgeolocalization.delivery.rest.model.IpTraceResponse;
-import com.meli.ipgeolocalization.delivery.rest.model.StatsResponse;
 import com.meli.ipgeolocalization.usecases.interfaces.IpTracer;
 import com.meli.ipgeolocalization.usecases.interfaces.QueryHistoryStorage;
 import com.meli.ipgeolocalization.utils.JacksonUtils;
@@ -43,14 +42,6 @@ public class GeoLocalizationController {
     historyStorage.registerCountryDistance(response.getCountry(), response.getEstimatedDistance());
     logger.info("getIpTrace response: {}", JacksonUtils.getPlainJsonJson(response));
     return new ResponseEntity<>(response, HttpStatus.OK);
-  }
-
-  @GetMapping("/stats")
-  public ResponseEntity<StatsResponse> getStats() {
-    logger.info("getStats request");
-    StatsResponse stats = historyStorage.getConsumptionStats();
-    logger.info("getStats response: {}", JacksonUtils.getPlainJsonJson(stats));
-    return new ResponseEntity<>(stats, HttpStatus.OK);
   }
 
 }
