@@ -5,6 +5,7 @@ import com.meli.ipgeolocalization.usecases.interfaces.QueryHistoryStorage;
 import com.meli.ipgeolocalization.utils.JacksonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class StatsController {
   private final QueryHistoryStorage historyStorage;
 
   public StatsController(
-      QueryHistoryStorage historyStorage) {
+      @Qualifier(value = "localHistory") QueryHistoryStorage historyStorage) {
     this.historyStorage = historyStorage;
   }
 

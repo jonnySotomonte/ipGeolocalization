@@ -6,6 +6,9 @@ public class CountryDistance {
   private Double distance;
   private Integer invocations;
 
+  public CountryDistance() {
+  }
+
   public CountryDistance(String country, Double distance) {
     this.country = country;
     this.distance = distance;

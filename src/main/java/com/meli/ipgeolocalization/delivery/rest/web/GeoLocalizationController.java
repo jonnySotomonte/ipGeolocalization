@@ -8,6 +8,7 @@ import com.meli.ipgeolocalization.utils.JacksonUtils;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +26,7 @@ public class GeoLocalizationController {
   private final QueryHistoryStorage historyStorage;
 
   public GeoLocalizationController(IpTracer ipTracer,
-      QueryHistoryStorage historyStorage) {
+      @Qualifier(value = "localHistory") QueryHistoryStorage historyStorage) {
     this.ipTracer = ipTracer;
     this.historyStorage = historyStorage;
   }

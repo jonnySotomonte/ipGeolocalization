@@ -4,14 +4,14 @@ import com.meli.ipgeolocalization.delivery.rest.model.StatsResponse;
 import com.meli.ipgeolocalization.usecases.interfaces.QueryHistoryStorage;
 import com.meli.ipgeolocalization.usecases.model.CountryDistance;
 import com.meli.ipgeolocalization.utils.JacksonUtils;
+import com.meli.ipgeolocalization.utils.StatsUtils;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.OptionalDouble;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service(value = "localHistory")
 public class LocalQueryHistoryStorage implements QueryHistoryStorage {
 
   private final Logger logger = LoggerFactory.getLogger(LocalQueryHistoryStorage.class);
@@ -32,48 +32,9 @@ public class LocalQueryHistoryStorage implements QueryHistoryStorage {
 
   @Override
   public StatsResponse getConsumptionStats() {
-    Double max = getMax();
-    Double min = getMin();
-    Double average = getAverage();
+    Double max = StatsUtils.getMax(localHistory.values());
+    Double min = StatsUtils.getMin(localHistory.values());
+    Double average = StatsUtils.getAverage(localHistory.values());
     return new StatsResponse(max, min, average);
-  }
-
-  private Double getMax() {
-    if(localHistory.values().size()==0) {
-      return 0.0;
-    } else {
-      OptionalDouble maxDistance = localHistory.values().stream()
-          .mapToDouble(CountryDistance::getDistance)
-          .max();
-      return maxDistance.getAsDouble();
-    }
-  }
-
-  private Double getMin() {
-    if(localHistory.values().size()==0) {
-      return 0.0;
-    } else {
-      OptionalDouble minDistance = localHistory.values().stream()
-          .mapToDouble(CountryDistance::getDistance)
-          .min();
-      return minDistance.getAsDouble();
-    }
-  }
-
-  private Double getAverage() {
-    if(localHistory.values().size()==0) {
-      return 0.0;
-    } else {
-      Double sumDistance = localHistory.values().stream()
-          .mapToDouble(country -> country.getDistance() * country.getInvocations())
-          .sum();
-
-      Double sumInvocations = localHistory.values().stream()
-          .mapToDouble(CountryDistance::getInvocations)
-          .sum();
-
-      return sumDistance / sumInvocations;
-    }
-
   }
 }
