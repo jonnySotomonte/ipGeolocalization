@@ -26,10 +26,6 @@ public class ExceptionInterceptor {
         String fieldName = ((FieldError) error).getField();
         String errorMessage = error.getDefaultMessage();
         errors.put(fieldName, errorMessage);
-      } else {
-        String fieldName = error.getObjectName();
-        String errorMessage = error.getDefaultMessage();
-        errors.put(fieldName, errorMessage);
       }
     });
     ErrorResponse error = new ErrorResponse(errors.values().toString(), ErrorCode.INVALID_REQUEST);

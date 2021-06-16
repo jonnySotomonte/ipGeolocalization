@@ -24,13 +24,13 @@ public class RestCountriesRepository implements CountryRepository {
   private final RestTemplate restTemplate;
   private final TraceMapper mapper;
 
-  @Value("${restCountries.url}")
-  private String restCountriesUrl;
+  private final String restCountriesUrl;
 
-  public RestCountriesRepository(RestTemplate restTemplate,
-      TraceMapper mapper) {
+  public RestCountriesRepository(RestTemplate restTemplate, TraceMapper mapper,
+      @Value("${restCountries.url}") String restCountriesUrl) {
     this.restTemplate = restTemplate;
     this.mapper = mapper;
+    this.restCountriesUrl = restCountriesUrl;
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.meli.ipgeolocalization.usecases.mappers;
 
-import com.meli.ipgeolocalization.repositories.model.FixerResponse;
 import com.meli.ipgeolocalization.repositories.model.IpApiTracerResponse;
 import com.meli.ipgeolocalization.repositories.model.RestCountriesResponse;
 import com.meli.ipgeolocalization.usecases.model.Country;

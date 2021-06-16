@@ -26,7 +26,7 @@ public class GeoLocalizationController {
   private final QueryHistoryStorage historyStorage;
 
   public GeoLocalizationController(IpTracer ipTracer,
-      @Qualifier(value = "localHistory") QueryHistoryStorage historyStorage) {
+      @Qualifier(value = "dynamoHistory") QueryHistoryStorage historyStorage) {
     this.ipTracer = ipTracer;
     this.historyStorage = historyStorage;
   }

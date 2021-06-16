@@ -23,14 +23,15 @@ public class FixerCurrencyRepository implements CurrencyRepository {
   private final Logger logger = LoggerFactory.getLogger(FixerCurrencyRepository.class);
   private final RestTemplate restTemplate;
 
-  @Value("${fixer.url}")
-  private String fixerUrl;
+  private final String fixerUrl;
 
-  @Value("${fixer.access_key}")
-  private String fixerAccessKey;
+  private final String fixerAccessKey;
 
-  public FixerCurrencyRepository(RestTemplate restTemplate) {
+  public FixerCurrencyRepository(RestTemplate restTemplate, @Value("${fixer.url}") String fixerUrl,
+      @Value("${fixer.access_key}") String fixerAccessKey) {
     this.restTemplate = restTemplate;
+    this.fixerUrl = fixerUrl;
+    this.fixerAccessKey = fixerAccessKey;
   }
 
   @Override

@@ -12,11 +12,6 @@ public class HaversineDistanceCalculator implements DistanceCalculator {
    */
   @Override
   public double calculate(GeoPt originPoint, GeoPt targetPoint) {
-    if ((originPoint.getLatitude() == 0 && originPoint.getLongitude() == 0) ||
-        (targetPoint.getLatitude() == 0 && targetPoint.getLongitude() == 0)) {
-      return 0;
-    }
-
     double earthRadiusInMeters = 6378100;
 
     double originLatitudeInRadians = convertToRadians(originPoint.getLatitude());

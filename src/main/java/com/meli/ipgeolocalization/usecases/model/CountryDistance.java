@@ -6,6 +6,7 @@ public class CountryDistance {
   private Double distance;
   private Integer invocations;
 
+  // for JSON serialization purposes
   public CountryDistance() {
   }
 
@@ -29,5 +30,17 @@ public class CountryDistance {
 
   public Integer getInvocations() {
     return invocations;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public void setDistance(Double distance) {
+    this.distance = distance;
+  }
+
+  public void setInvocations(Integer invocations) {
+    this.invocations = invocations;
   }
 }

@@ -4,8 +4,8 @@ import com.meli.ipgeolocalization.exceptions.BusinessException;
 import com.meli.ipgeolocalization.model.IpAPiTracerErrors;
 import com.meli.ipgeolocalization.repositories.interfaces.TracerRepository;
 import com.meli.ipgeolocalization.repositories.model.IpApiTracerResponse;
+import com.meli.ipgeolocalization.usecases.mappers.TraceMapper;
 import com.meli.ipgeolocalization.usecases.model.IpTrace;
-import com.meli.ipgeolocalization.utils.JacksonUtils;
 import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,23 +16,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.meli.ipgeolocalization.usecases.mappers.TraceMapper;
 
 @Repository
 public class IpApiTraceRepository implements TracerRepository {
 
+  private final Logger logger = LoggerFactory.getLogger(IpApiTraceRepository.class);
+
   private final RestTemplate restTemplate;
   private final TraceMapper mapper;
 
-  @Value("${ipapi.url}")
-  private String ipApiUrl;
 
-  @Value("${ipapi.access_key}")
-  private String ipAccessKey;
+  private final String ipApiUrl;
 
-  public IpApiTraceRepository(RestTemplate restTemplate, TraceMapper mapper) {
+  private final String ipAccessKey;
+
+  public IpApiTraceRepository(RestTemplate restTemplate, TraceMapper mapper,
+      @Value("${ipapi.url}") String ipApiUrl, @Value("${ipapi.access_key}") String ipAccessKey) {
     this.restTemplate = restTemplate;
     this.mapper = mapper;
+    this.ipApiUrl = ipApiUrl;
+    this.ipAccessKey = ipAccessKey;
   }
 
   @Override
@@ -51,6 +54,7 @@ public class IpApiTraceRepository implements TracerRepository {
         return mapper.mapIpTrace(trace);
       }
     } catch(Exception e) {
+      logger.error("ipApiTraceRepository: There was an error, caused by: {}", e.getMessage());
       throw new BusinessException("Hubo un error al consultar la IP ingresada, por favor asegurese de ingresar los datos correctos");
     }
 

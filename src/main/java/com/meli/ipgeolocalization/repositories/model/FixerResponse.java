@@ -7,6 +7,16 @@ public class FixerResponse {
 
   private Object rates;
 
+  // for JSON serialization purposes
+  public FixerResponse() {
+  }
+
+  public FixerResponse(Boolean success, ApiError error, Object rates) {
+    this.success = success;
+    this.error = error;
+    this.rates = rates;
+  }
+
   public Boolean getSuccess() {
     return success;
   }
@@ -17,5 +27,17 @@ public class FixerResponse {
 
   public Object getRates() {
     return rates;
+  }
+
+  public void setSuccess(Boolean success) {
+    this.success = success;
+  }
+
+  public void setError(ApiError error) {
+    this.error = error;
+  }
+
+  public void setRates(Object rates) {
+    this.rates = rates;
   }
 }
