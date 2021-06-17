@@ -31,8 +31,6 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
 
   private final Logger logger = LoggerFactory.getLogger(DynamoQueryHistoryStorage.class);
 
-  private final String TABLE_NAME = "country-distance-invocations";
-
   @Override
   public void registerCountryDistance(String country, Double distance) {
 
@@ -62,9 +60,7 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
 
   private CountryDistance getDynamoItem(String country) {
     CountryDistance countryDistance = null;
-    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-    DynamoDB dynamoDB = new DynamoDB(client);
-    Table table = dynamoDB.getTable(TABLE_NAME);
+    Table table = getDynamoTable();
     PrimaryKey primaryKey = new PrimaryKey("country", country);
     Item item = table.getItem(primaryKey);
     if(item != null) {
@@ -76,9 +72,7 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
   }
 
   private void putDynamoItem(CountryDistance dynamoItem) {
-    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-    DynamoDB dynamoDB = new DynamoDB(client);
-    Table table = dynamoDB.getTable(TABLE_NAME);
+    Table table = getDynamoTable();
     Item item = new Item()
         .with("country", dynamoItem.getCountry())
         .with("distance", dynamoItem.getDistance())
@@ -87,9 +81,7 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
   }
 
   private void updateDynamoItem(CountryDistance dynamoItem) {
-    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-    DynamoDB dynamoDB = new DynamoDB(client);
-    Table table = dynamoDB.getTable(TABLE_NAME);
+    Table table = getDynamoTable();
     UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("country", dynamoItem.getCountry())
         .withUpdateExpression("ADD invocations :inc")
         .withValueMap(new ValueMap().withNumber(":inc", 1))
@@ -100,9 +92,7 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
   private List<CountryDistance> getDynamoHistory() {
     try {
       List<CountryDistance> dynamoHistory = new ArrayList<>();
-      AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-      DynamoDB dynamoDB = new DynamoDB(client);
-      Table table = dynamoDB.getTable(TABLE_NAME);
+      Table table = getDynamoTable();
       ScanSpec scanSpec = new ScanSpec();
       ItemCollection<ScanOutcome> items = table.scan(scanSpec);
       for (Item item : items) {
@@ -117,5 +107,12 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
       logger.error("An error occurred while scan dynamo table, caused by: {}", e.getMessage());
       throw new BusinessException("Error al consultar las estadisticas, por favor intente más tarde");
     }
+  }
+
+  private Table getDynamoTable() {
+    String TABLE_NAME = "country-distance-invocations";
+    AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
+    DynamoDB dynamoDB = new DynamoDB(client);
+    return dynamoDB.getTable(TABLE_NAME);
   }
 }
