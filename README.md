@@ -35,7 +35,7 @@ sin sufrir perdida de información.
 ## Ejecución
 
 Existen 2 maneras de ejecutar la aplciación en ambiente local, aunque las 2 formas implican correr una imagen docker 
-de la aplciación, es decir, el resultado final será un contenedor docker ejecutando la aplicación.  
+de la aplicación, es decir, el resultado final será un contenedor docker ejecutando la aplicación.  
 
 **Prerrequisitos**  
     - Java  
