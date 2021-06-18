@@ -13,6 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultIpTracerMapper implements  IpTraceMapper {
 
+  /**
+   * It's a method that map a domain object to a response object
+   *
+   * @param ip Defines queried ip
+   * @param ipTrace Defines the info associated with queried ip
+   * @param country Defines the country associated with the queried ip
+   * @param currency Defines the currency associated with the queried ip
+   * @param distance Defines the distance between Argentina and the country associated with the queried ip
+   */
   @Override
   public IpTraceResponse mapResponse(String ip, IpTrace ipTrace, Country country, String currency,
       double distance) {

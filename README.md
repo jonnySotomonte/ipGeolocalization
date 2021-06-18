@@ -71,9 +71,24 @@ de la aplciación, es decir, el resultado final será un contenedor docker ejecu
   
   Para no hacer llamados innecesarios a las API externas y así evitar consumir el limite 
   de llamados permitidos y a su vez mejorar los tiempos de respuesta de la aplicación se ha
-  hecho uso de un cahce en memoria que al detectar invocaciones para peticiones que anteriormente
+  hecho uso de un cache en memoria que al detectar invocaciones para peticiones que anteriormente
   ya se habian realizado no consumirá las API's externas sino que retornara la respuesta ya almacenada
   en la memoria.
+  
+  ## Consumir Aplicación hosteada
+  
+  Para consumir la aplicaicón que se encuentra hosteada en la nube de AWS puede enviar los request al siguiente servidor:  
+  `http://3.12.120.42:8080/` por lo tanto bien sea por curl o por Postman puede consumir la aplicación de la misma
+  manera como se describe en el punto anterior.  
+  `curl -X POST -d "{'ip':'83.44.196.93'}" "http://3.12.120.42:8080/trace"`  
+  `curl -X GET "http://3.12.120.42:8080/stats"`
+  
+  - **Nota**: Puede consultar la documentación (swagger) de los endpoint expuestos en la siguiente url:  
+  `http://3.12.120.42:8080/swagger-ui.html`  
+  
+  Aqui se deja como ejemplo una imagen de la documentación generada con swagger:
+  
+  ![Diagrama de arquitectura](./swagger-doc.png)
     
 ## Despliegue
 
@@ -81,7 +96,7 @@ de la aplciación, es decir, el resultado final será un contenedor docker ejecu
 haciendo uso del servicio Elastic Container Service (ECS) bajo una arquitectura Serverless en instancias tipo Fargate.  
 
 2.  La aplicación tiene asociado un Log Group de Cloudwatch en el cual se puede evidenciar el registro de los logs 
-generados por la aplciación, con el próposito de evidenciar el paso a paso de cada una de las peticiones realizadas,
+generados por la aplicación, con el próposito de evidenciar el paso a paso de cada una de las peticiones realizadas,
 así como el registro de los errores que se puedan presentar dentro de la ejecución de la misma.  
 
 3.  El servicio ECS tiene configurado mediante Roles y Politicas de IAM permisos de Lectura y Escritura sobre una tabla de DynamoDB
@@ -90,11 +105,12 @@ por país se han realizado sobre la aplicación, para posteriormente obtener las
 
 4.  A manera de propuesta para soportar una fluctuación pesada en las peticiones que puede llegar a recibir la aplciación
 se opta por configurar al servicio ECS un Application Load Balancer (ALB) + Auto Scaling Group (ASG) los cuales se encargaran
-de distribuir la carga entre las diferentes instancias que estén disponible en cada momento, asi como de crear o destruir instancias
+de distribuir la carga entre las diferentes instancias que estén disponibles en cada momento, asi como de crear o destruir instancias
 dependiendo de las metricas de consumo de recursos que tengan en un momento dado las instancias que se estén ejecutando.  
 *Nota: Esta implementación es sugerida y aún no se encuentra implementada*
 
-5.  En la siguiente imagen se puede observar el diagrama de Arquitectura propuesto y descrito anteriormente  
+5.  En la siguiente imagen se puede observar el diagrama de Arquitectura propuesto y descrito anteriormente
+ 
 ![Diagrama de arquitectura](./diagrama.png)
 
 ## Convenciones de código

@@ -38,6 +38,11 @@ public class IpApiTraceRepository implements TracerRepository {
     this.ipAccessKey = ipAccessKey;
   }
 
+  /**
+   * It's a method that call an external API to get information related with the queried ip
+   *
+   * @param ip Defines the queried ip
+   */
   @Override
   public IpTrace getTrace(String ip) {
     try {

@@ -34,6 +34,12 @@ public class FixerCurrencyRepository implements CurrencyRepository {
     this.fixerAccessKey = fixerAccessKey;
   }
 
+  /**
+   * It's a method call an external API to convert currencies
+   *
+   * @param from Defines the base currency to convert the currencies
+   * @param to Defines the target currency to convert the currencies
+   */
   @Override
   @Cacheable(value = "country", key = "#to.code")
   public String convertCurrency(String from, Currency to) {

@@ -31,6 +31,12 @@ public class DynamoQueryHistoryStorage implements QueryHistoryStorage {
 
   private final Logger logger = LoggerFactory.getLogger(DynamoQueryHistoryStorage.class);
 
+  /**
+   * It's a method that register a country distance record in the dynamoDb table
+   *
+   * @param country Defines the country's name
+   * @param distance Defines the distance between Argentina and the country
+   */
   @Override
   public void registerCountryDistance(String country, Double distance) {
 

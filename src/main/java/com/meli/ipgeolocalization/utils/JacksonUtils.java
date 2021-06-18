@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory;
 
 public class JacksonUtils {
 
+  /**
+   * It's a method that convert to String any Java object
+   *
+   * @param object Defines the Java object
+   */
   public static String getPlainJsonJson(Object object) {
     Logger logger = LoggerFactory.getLogger(JacksonUtils.class);
     try {

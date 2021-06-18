@@ -33,6 +33,11 @@ public class RestCountriesRepository implements CountryRepository {
     this.restCountriesUrl = restCountriesUrl;
   }
 
+  /**
+   * It's a method that call an external API to get information related with the a queried country
+   *
+   * @param code Defines the queried country's ISO code
+   */
   @Override
   @Cacheable(value = "country", key = "#code")
   public Country getByISOCode(String code) {

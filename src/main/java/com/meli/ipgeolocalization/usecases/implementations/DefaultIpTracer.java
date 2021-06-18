@@ -45,6 +45,11 @@ public class DefaultIpTracer implements IpTracer {
     this.mapper = mapper;
   }
 
+  /**
+   * It's a service that query and build all information related with the queried ip
+   *
+   * @param ip Defines the queried ip
+   */
   @Override
   @Cacheable(value = "trace", key = "#ip")
   public IpTraceResponse getTrace(String ip) {

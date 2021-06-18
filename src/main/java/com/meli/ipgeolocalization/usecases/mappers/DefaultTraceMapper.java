@@ -20,6 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultTraceMapper implements TraceMapper {
 
+  /**
+   * It's a method that map a external API response object to a domain object
+   *
+   * @param response Defines queried external API response
+   */
   @Override
   public IpTrace mapIpTrace(IpApiTracerResponse response) {
 
@@ -38,6 +43,11 @@ public class DefaultTraceMapper implements TraceMapper {
         .build();
   }
 
+  /**
+   * It's a method that map a external API response object to a domain object
+   *
+   * @param response Defines queried external API response
+   */
   @Override
   public Country mapCountry(RestCountriesResponse response) {
     final Date now = new Date();

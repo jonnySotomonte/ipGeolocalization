@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 public class HaversineDistanceCalculator implements DistanceCalculator {
 
   /**
+   * It's a method that calculate the distance between two points in the world and return
+   * its result represented in Km
    * Haversine formula - adapted from https://www.movable-type.co.uk/scripts/latlong.html
+   * @param originPoint Defines the origin point, in this case always is Argentina
+   * @param targetPoint Defines the target point, according with the ip's country
    */
   @Override
   public double calculate(GeoPt originPoint, GeoPt targetPoint) {
