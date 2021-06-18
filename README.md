@@ -92,7 +92,7 @@ de la aplicación, es decir, el resultado final será un contenedor docker ejecu
     
 ## Despliegue
 
-1.  La plicación tambien se encuentra desplegada en la nube de AWS siendo ejecutada como contenedor Docker,
+1.  La aplicación tambien se encuentra desplegada en la nube de AWS siendo ejecutada como contenedor Docker,
 haciendo uso del servicio Elastic Container Service (ECS) bajo una arquitectura Serverless en instancias tipo Fargate.  
 
 2.  La aplicación tiene asociado un Log Group de Cloudwatch en el cual se puede evidenciar el registro de los logs 
@@ -103,7 +103,7 @@ así como el registro de los errores que se puedan presentar dentro de la ejecuc
 para realizar el registro de las distancias de cada uno de los paises asociados a las IP consultadas y cuantas invocaciones
 por país se han realizado sobre la aplicación, para posteriormente obtener las estadisticas solicitadas.  
 
-4.  A manera de propuesta para soportar una fluctuación pesada en las peticiones que puede llegar a recibir la aplciación
+4.  A manera de propuesta para soportar una fluctuación pesada en las peticiones que puede llegar a recibir la aplicación
 se opta por configurar al servicio ECS un Application Load Balancer (ALB) + Auto Scaling Group (ASG) los cuales se encargaran
 de distribuir la carga entre las diferentes instancias que estén disponibles en cada momento, asi como de crear o destruir instancias
 dependiendo de las metricas de consumo de recursos que tengan en un momento dado las instancias que se estén ejecutando.  
