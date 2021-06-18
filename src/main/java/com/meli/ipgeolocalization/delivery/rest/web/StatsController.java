@@ -18,7 +18,7 @@ public class StatsController {
   private final QueryHistoryStorage historyStorage;
 
   public StatsController(
-      @Qualifier(value = "localHistory") QueryHistoryStorage historyStorage) {
+      @Qualifier(value = "dynamoHistory") QueryHistoryStorage historyStorage) {
     this.historyStorage = historyStorage;
   }
 
