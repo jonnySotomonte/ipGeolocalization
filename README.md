@@ -49,8 +49,8 @@ de la aplicación, es decir, el resultado final será un contenedor docker ejecu
     -  Levantar contenedor:  
         `docker docker run -e IPAPI_ACCESS_KEY='7bd942b4b5df8d66082ff5eb8c0aeded' -e FIXER_ACCESS_KEY='4e806e644979edf84bf11838fc291bdf' -p 80:8080 --name ip-geo-localization-local ip-geo-localization-local:latest`
     -  Consumir aplicación apuntando a localhost:  
-       `curl -X POST -d "{'ip':'83.44.196.93'}" "http://localhost:8080/trace"`  
-       `curl -X GET "http://localhost:8080/stats"`
+       `curl -X POST -d "{'ip':'83.44.196.93'}" "http://localhost/trace"`  
+       `curl -X GET "http://localhost/stats"`
 
 2. Construir imagen docker:
     - Clonar repositorio actual:  
@@ -66,8 +66,8 @@ de la aplicación, es decir, el resultado final será un contenedor docker ejecu
     -  Levantar contenedor:  
        `docker docker run -e IPAPI_ACCESS_KEY='7bd942b4b5df8d66082ff5eb8c0aeded' -e FIXER_ACCESS_KEY='4e806e644979edf84bf11838fc291bdf' -p 80:8080 --name ip-geo-localization-local ip-geo-localization-local:latest`
     -  Consumir aplicación apuntando a localhost:  
-       `curl -X POST -d "{'ip':'83.44.196.93'}" "http://localhost:8080/trace"`  
-       `curl -X GET "http://localhost:8080/stats"`
+       `curl -X POST -d "{'ip':'83.44.196.93'}" "http://localhost/trace"`  
+       `curl -X GET "http://localhost/stats"`
   
   Para no hacer llamados innecesarios a las API externas y así evitar consumir el limite 
   de llamados permitidos y a su vez mejorar los tiempos de respuesta de la aplicación se ha
